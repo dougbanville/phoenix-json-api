@@ -39,6 +39,7 @@ defmodule LibraryApiWeb.Endpoint do
     store: :cookie,
     key: "_library_api_key",
     signing_salt: "SRPdQ2zU"
-
+  
+  plug CORSPlug, origins: "*"
   plug LibraryApiWeb.Router
 end
