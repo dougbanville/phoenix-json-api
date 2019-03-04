@@ -27,7 +27,7 @@ defmodule LibraryApiWeb.AuthorController do
   def update(conn, %{"id" => id, "data" => data = %{ "type" => "authors", "attributes" => author_params }}) do
     author = Library.get_author!(id)
 
-    with {:ok, %Author{} = author} <- Library.udpate_author(author, author_params) do
+    with {:ok, %Author{} = author} <- Library.update_author(author, author_params) do
       conn
       |> render("show.json-api", data: author)
     end
