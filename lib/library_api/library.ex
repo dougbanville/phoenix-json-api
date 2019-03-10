@@ -16,6 +16,14 @@ defmodule LibraryApi.Library do
 
   def get_author!(id), do: Repo.get(Author, id)
 
+  def get_author_for_book!(book_id) do
+    book = get_book!(book_id)
+
+    book = Repo.preload(book, :author)
+
+    book.author
+  end
+
   def create_author(attrs \\ %{})do
     %Author{}
     |> Author.changeset(attrs)
@@ -33,12 +41,18 @@ defmodule LibraryApi.Library do
   # Books
   def list_books, do: Repo.all(Book)
 
+  def list_books_for_author(author_id) do
+    Book
+    |> where([b], b.author_id == ^author_id)
+    |> Repo.all()
+  end
+
   def search_books(search_term) do
     search_term = String.downcase(search_term)
 
     Book
     |> where([b], like(fragment("lower(?)", b.title), ^"%#{search_term}%"))
-    |> where([b], like(fragment("lower(?)", b.isbn), ^"%#{search_term}%"))
+    |> or_where([b], like(fragment("lower(?)", b.isbn), ^"%#{search_term}%"))
     |> Repo.all()
   end
 
