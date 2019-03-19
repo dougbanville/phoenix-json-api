@@ -9,6 +9,6 @@ defmodule LibraryApiWeb.BookView do
   serializer: LibraryApiWeb.AuthorView,
   identifiers: :when_included,
   links: [
-    related: "/authors/:id/author"
+    related: "/books/:id/author"
   ]
 end
