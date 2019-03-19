@@ -19,7 +19,7 @@ defmodule LibraryApiWeb.AuthorController do
     with {:ok, %Author{} = author} <- Library.create_author(author_params) do
       conn
       |> put_status(:created)
-      #|> put_resp_header("location", "authors/")
+      |> put_resp_header("location", "authors/")
       |> render("show.json-api", data: author)
     end
   end

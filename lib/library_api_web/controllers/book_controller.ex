@@ -34,7 +34,7 @@ defmodule LibraryApiWeb.BookController do
     with {:ok, %Book{} = book} <- Library.create_book(data) do
       conn
       |> put_status(:created)
-      #|> put_resp_header("location", book_path(conn, :show, book))
+      |> put_resp_header("location", Routes.book_path(conn, :show, book))
       |> render("show.json-api", data: book)
     end
      
